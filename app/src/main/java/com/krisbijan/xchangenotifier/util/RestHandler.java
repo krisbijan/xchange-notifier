@@ -12,8 +12,8 @@ import java.util.concurrent.ExecutionException;
 
 public class RestHandler extends AsyncTask<String, Void, String> {
 
-    private final String bitcoinURL = "https://blockchain.info/ticker";
-    private final String traditionalURL = "https://api.fixer.io/latest";
+    private final static String bitcoinURL = "https://blockchain.info/ticker";
+    private final static String traditionalURL = "https://api.fixer.io/latest";
 
     @Override
     protected String doInBackground(String... urls) {
@@ -56,13 +56,20 @@ public class RestHandler extends AsyncTask<String, Void, String> {
     }
 
 
-    private String getExchangeInfo(String url) {
+    public static void getExchangeInfo() {
 
-        String result ="{}";
+        String result_bitcoinURL ="{}";
+        String result_traditionalURL ="{}";
+        RestHandler rh = new RestHandler();
+
 
         try {
-            result = execute(url).get();
-            Log.i("REST recieved", result);
+            result_bitcoinURL = rh.execute(bitcoinURL).get();
+            Log.i("REST recieved", result_bitcoinURL);
+
+            result_traditionalURL = rh.execute(traditionalURL).get();
+            Log.i("REST recieved", result_traditionalURL);
+
         } catch (InterruptedException e) {
             Log.e("Rest ERROR", e.getMessage());
             e.printStackTrace();
@@ -71,17 +78,8 @@ public class RestHandler extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        return result;
     }
 
 
-    public String getBitcoinInfo() {
-        return getExchangeInfo(bitcoinURL);
-    }
 
-
-    public String getTraditionalMoneyInfo() {
-
-        return getExchangeInfo(traditionalURL);
-    }
 }

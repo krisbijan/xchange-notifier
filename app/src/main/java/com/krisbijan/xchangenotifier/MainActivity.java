@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Set main menu in toolbar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         Log.i("Menu Info", "Created");
@@ -43,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //Menu item pressed
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
