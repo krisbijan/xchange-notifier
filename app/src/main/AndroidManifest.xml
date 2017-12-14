@@ -16,6 +16,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".NewAlertActivity" android:label="New Alert" />
+        <activity android:name=".SettingsActivity" android:label="Settings" />
+        <activity android:name=".EditAlertActivity" android:label="Edit Alert" />
+        <activity android:name=".RatesActivity" android:label="Latest rates" />
+
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
