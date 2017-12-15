@@ -7,4 +7,27 @@
     tools:context="com.krisbijan.xchangenotifier.NewAlertActivity">
 
 
+    <LinearLayout
+        android:id="@+id/x"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Currencies"
+            android:textSize="20sp" />
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

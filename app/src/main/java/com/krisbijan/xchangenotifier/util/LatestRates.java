@@ -1,7 +1,9 @@
 package com.krisbijan.xchangenotifier.util;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
 public class LatestRates {
@@ -9,9 +11,10 @@ public class LatestRates {
     //all rates are based on EUR
     private static final LatestRates instance = new LatestRates();
     private HashMap<String,Double>  rates = new HashMap<String,Double> ();
+    private Date latestUpdate;
 
     private LatestRates(){
-        
+        latestUpdate = new Date();
         
         rates.put("AUD",placeholder());
         rates.put("BGN",placeholder());
@@ -26,6 +29,7 @@ public class LatestRates {
         rates.put("HKD",placeholder());
         rates.put("HRK",placeholder());
         rates.put("HUF",placeholder());
+        rates.put("EUR",placeholder());
         rates.put("IDR",placeholder());
         rates.put("ILS",placeholder());
         rates.put("INR",placeholder());
@@ -60,7 +64,18 @@ public class LatestRates {
     }
     
     private double placeholder(){
-        DecimalFormat df = new DecimalFormat("#.####");
-        return Double.parseDouble(df.format(Math.random()));
+        //DecimalFormat df = new DecimalFormat("#.####");
+        //return Double.parseDouble(df.format(Math.random()));
+        return 1.0D;
     }
+
+    public String getLastUpdate() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(latestUpdate);
+    }
+
+    public void update() {
+        latestUpdate = new Date();
+    }
+
 }

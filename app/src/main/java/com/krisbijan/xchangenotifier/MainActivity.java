@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.krisbijan.xchangenotifier.util.Alert;
 import com.krisbijan.xchangenotifier.util.DatabaseHandler;
 import com.krisbijan.xchangenotifier.util.LatestRates;
 import com.krisbijan.xchangenotifier.util.RestHandler;
@@ -30,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Activity Info", "onCreate MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new RestHandler().updateTradExchangeInfo();
+        new RestHandler().updateBitcoinExchangeInfo();
+
+        database_test();
         populateList();
 
     }
@@ -68,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         final ArrayList<String> alerts = new ArrayList<String>();
 
-        if (alerts.size()<1){
+        if (Alert.getAllAlerts().size()<1){
 
             alerts.add("No alerts set up :(");
 
@@ -77,6 +82,19 @@ public class MainActivity extends AppCompatActivity {
             alertList.setAdapter(adapter);
 
         } else {
+
+            for (int i=0;i<Alert.getAllAlerts().size();i++){
+                Alert a = Alert.getAllAlerts().get(i);
+
+                String over_under="";
+
+                if (a.getOver_under()==0)
+                    over_under = " under ";
+                else
+                    over_under = " over ";
+
+                    alerts.add(a.getFirstCurrency()+"/"+a.getSecondCurrency()+over_under+a.getRate());
+            }
 
             ArrayAdapter <String> adapter = new ArrayAdapter <String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
 
@@ -94,6 +112,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void editAlert(String text){
+    }
+
+
+    void database_test(){
+        DatabaseHandler db = new DatabaseHandler(this);
+
+        // Inserting Contacts
+        Log.d("Database ", "Inserting ..");
+
+        Log.d("Database ", "Reading all alerts..");
+        Alert.setAllAlerts((ArrayList<Alert>) db.getAllAlerts());
+
+        for (Alert cn : Alert.getAllAlerts()) {
+            Log.d("Database ", cn.toString());
+        }
     }
 
 }

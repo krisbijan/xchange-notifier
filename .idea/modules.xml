@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/XchangeNotifier.iml" filepath="$PROJECT_DIR$/XchangeNotifier.iml" />
       <module fileurl="file://C:\Users\HAUS\AndroidStudioProjects\xchange-notifier\XchangeNotifier.iml" filepath="C:\Users\HAUS\AndroidStudioProjects\xchange-notifier\XchangeNotifier.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\HAUS\AndroidStudioProjects\xchange-notifier\app\app.iml" filepath="C:\Users\HAUS\AndroidStudioProjects\xchange-notifier\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xchange-notifier.iml" filepath="$PROJECT_DIR$/xchange-notifier.iml" />
+      <module fileurl="file://C:\Users\ekribil\AndroidStudioProjects\XchangeNotifier\xchange-notifier.iml" filepath="C:\Users\ekribil\AndroidStudioProjects\XchangeNotifier\xchange-notifier.iml" />
     </modules>
   </component>
 </project>
