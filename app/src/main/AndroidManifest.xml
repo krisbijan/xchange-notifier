@@ -22,9 +22,12 @@
         <activity android:name=".EditAlertActivity" android:label="Edit Alert" />
         <activity android:name=".RatesActivity" android:label="Latest rates" />
 
+        <service android:name=".CurrencyRateNotificationService" />
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+
 
 </manifest>
