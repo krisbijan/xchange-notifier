@@ -23,7 +23,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Contacts table name
     private static final String TABLE_ALERTS = "alerts";
-    private static final String TABLE_SETTINGS = "settings";
 
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
@@ -42,7 +41,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        onCreate(this.getReadableDatabase());
     }
 
     // Creating Tables
@@ -56,7 +54,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_ALERT_TABLE);
     }
 
-    // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ALERTS);
@@ -110,5 +107,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cursor.close();
 
         return cursor.getCount();
+    }
+
+    public Alert getAlert(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_ALERTS, new String[] { KEY_ID, KEY_FIRST, KEY_SECOND, KEY_RATE, KEY_OVER_UNDER }, KEY_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Alert alert = new Alert(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1), cursor.getString(2),cursor.getDouble(3),cursor.getInt(4));
+
+        return alert;
+    }
+
+    public int updateAlert(Alert alert) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_FIRST, alert.getFirstCurrency());
+        values.put(KEY_SECOND, alert.getSecondCurrency());
+        values.put(KEY_RATE, alert.getRate());
+        values.put(KEY_OVER_UNDER, alert.getOver_under());
+
+        return db.update(TABLE_ALERTS, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(alert.getId()) });
     }
 }

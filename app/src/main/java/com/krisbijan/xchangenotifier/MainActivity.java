@@ -25,7 +25,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
@@ -78,10 +77,12 @@ public class MainActivity extends AppCompatActivity {
         final ListView alertList = (ListView) findViewById(R.id.alertlist);
 
         final ArrayList<String> alerts = new ArrayList<String>();
+        final ArrayList<Integer> alertsId = new ArrayList<Integer>();
 
         if (Alert.getAllAlerts().size() < 1) {
 
             alerts.add("No alerts set up :(");
+            alertsId.add(-1);
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
 
@@ -100,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
                     over_under = " over ";
 
                 alerts.add(a.getFirstCurrency() + "/" + a.getSecondCurrency() + over_under + a.getRate());
+                alertsId.add(a.getId());
+
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
@@ -110,14 +113,20 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    editAlert(alerts.get(position));
+                    editAlert(alertsId.get(position));
                 }
             });
 
         }
     }
 
-    void editAlert(String text) {
+    void editAlert(Integer id) {
+
+        if ( id > -1) {
+            Intent intent = new Intent(this, EditAlertActivity.class);
+            intent.putExtra("alert_db_id", ""+id);
+            startActivity(intent);
+        }
     }
 
 

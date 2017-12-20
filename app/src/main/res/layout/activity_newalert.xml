@@ -18,7 +18,7 @@
     <Spinner
         android:id="@+id/spinner_firstCurr"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:layout_marginTop="10dip" />
@@ -33,7 +33,7 @@
     <Spinner
         android:id="@+id/spinner_secondCurr"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:layout_marginTop="10dip" />
@@ -60,7 +60,7 @@
     <Spinner
         android:id="@+id/spinner_over_under"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dip"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:layout_marginTop="10dip" />
