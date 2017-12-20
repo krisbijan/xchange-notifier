@@ -33,6 +33,18 @@ public class Alert {
         this.over_under = over_under;
     }
 
+    public Alert(String firstCurrency, String secondCurrency, double rate, String over_under) {
+        this.firstCurrency = firstCurrency;
+        this.secondCurrency = secondCurrency;
+        this.rate = rate;
+
+        if (over_under.equalsIgnoreCase("over"))
+            this.over_under = 1;
+        else
+            this.over_under = 0;
+
+    }
+
     public Alert() {
     }
 

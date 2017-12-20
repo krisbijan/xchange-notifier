@@ -12,6 +12,7 @@ import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    private static DatabaseHandler sInstance;
 
     // All Static variables
     // Database Version
@@ -31,8 +32,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_RATE = "rate";
     private static final String KEY_OVER_UNDER = "over_under";
 
+    public static synchronized DatabaseHandler getInstance(Context context) {
 
-    public DatabaseHandler(Context context) {
+        if (sInstance == null) {
+            sInstance = new DatabaseHandler(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         onCreate(this.getReadableDatabase());
     }
@@ -65,6 +73,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_RATE, alert.getRate());
         values.put(KEY_OVER_UNDER, alert.getOver_under());
 
+        Log.d("Database ", "Adding "+alert.toString());
+
         db.insert(TABLE_ALERTS, null, values);
         db.close();
     }
@@ -89,6 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 alertList.add(alert);
             } while (cursor.moveToNext());
         }
+        Log.d("Database ", "Reading all alerts.. "+alertList);
 
         return alertList;
     }

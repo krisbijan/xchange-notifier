@@ -25,18 +25,24 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
         Log.i("Activity Info", "onCreate MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         new RestHandler().updateTradExchangeInfo();
         new RestHandler().updateBitcoinExchangeInfo();
 
         database_test();
         populateList();
-
     }
 
     @Override
@@ -68,35 +74,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void populateList(){
+    void populateList() {
         final ListView alertList = (ListView) findViewById(R.id.alertlist);
 
         final ArrayList<String> alerts = new ArrayList<String>();
 
-        if (Alert.getAllAlerts().size()<1){
+        if (Alert.getAllAlerts().size() < 1) {
 
             alerts.add("No alerts set up :(");
 
-            ArrayAdapter <String> adapter = new ArrayAdapter <String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
 
             alertList.setAdapter(adapter);
 
         } else {
 
-            for (int i=0;i<Alert.getAllAlerts().size();i++){
+            for (int i = 0; i < Alert.getAllAlerts().size(); i++) {
                 Alert a = Alert.getAllAlerts().get(i);
 
-                String over_under="";
+                String over_under = "";
 
-                if (a.getOver_under()==0)
+                if (a.getOver_under() == 0)
                     over_under = " under ";
                 else
                     over_under = " over ";
 
-                    alerts.add(a.getFirstCurrency()+"/"+a.getSecondCurrency()+over_under+a.getRate());
+                alerts.add(a.getFirstCurrency() + "/" + a.getSecondCurrency() + over_under + a.getRate());
             }
 
-            ArrayAdapter <String> adapter = new ArrayAdapter <String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_list_item_1, alerts);
 
             alertList.setAdapter(adapter);
 
@@ -111,22 +117,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void editAlert(String text){
+    void editAlert(String text) {
     }
 
 
-    void database_test(){
-        DatabaseHandler db = new DatabaseHandler(this);
-
-        // Inserting Contacts
-        Log.d("Database ", "Inserting ..");
+    void database_test() {
 
         Log.d("Database ", "Reading all alerts..");
-        Alert.setAllAlerts((ArrayList<Alert>) db.getAllAlerts());
+        Alert.setAllAlerts((ArrayList<Alert>) DatabaseHandler.getInstance(getApplicationContext()).getAllAlerts());
 
         for (Alert cn : Alert.getAllAlerts()) {
             Log.d("Database ", cn.toString());
         }
+
+
     }
 
 }

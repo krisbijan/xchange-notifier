@@ -48,15 +48,16 @@ public class RatesActivity extends AppCompatActivity {
             rateslist.setAdapter(adapter);
 
         } else {
-            DecimalFormat df = new DecimalFormat("#.####");
+            //DecimalFormat df = new DecimalFormat("#####.#########");
 
             for (int i = 0; i < rates.size(); i++) {
                 if (other_EUR) {
-                    double ratio = Double.parseDouble(df.format(1.0D / LatestRates.getInstance().getRates().get(rates.get(i))));
-
+                    //double ratio = Double.parseDouble(df.format(1.0D / LatestRates.getInstance().getRates().get(rates.get(i))));
+                    double ratio = 1.0D / LatestRates.getInstance().getRates().get(rates.get(i));
                     rates.set(i, rates.get(i) + "/EUR - " + ratio);
                 } else {
-                    double ratio = Double.parseDouble(df.format(LatestRates.getInstance().getRates().get(rates.get(i))));
+                    //double ratio = Double.parseDouble(df.format(LatestRates.getInstance().getRates().get(rates.get(i))));
+                    double ratio = LatestRates.getInstance().getRates().get(rates.get(i));
 
                     rates.set(i, "EUR/" + rates.get(i) + " - " + ratio);
                 }

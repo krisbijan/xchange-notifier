@@ -140,7 +140,7 @@ public class RestHandler extends AsyncTask<String, Void, String> {
             Log.i("JSON BTX/EUR Parse", EUR.toString());
             Double dValue = EUR.getDouble("last");
             LatestRates.getInstance().getRates().remove("BTX");
-            LatestRates.getInstance().getRates().put("BTX", dValue);
+            LatestRates.getInstance().getRates().put("BTX", 1.0D/dValue);
         } catch (JSONException e) {
             Log.e("JSON BTX Parse ERROR", e.getMessage());
             e.printStackTrace();

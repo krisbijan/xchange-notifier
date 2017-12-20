@@ -1,33 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context="com.krisbijan.xchangenotifier.NewAlertActivity">
+    >
 
 
-    <LinearLayout
-        android:id="@+id/x"
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Currencies"
-            android:textSize="20sp" />
-        <Spinner
-            android:id="@+id/spinner1"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+        android:padding="8dip"
+        android:text="First Currency" />
+
+
+    <Spinner
+        android:id="@+id/spinner_firstCurr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="10dip" />
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:text="Second Currency" />
+
+    <Spinner
+        android:id="@+id/spinner_secondCurr"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="10dip" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:text="Rate" />
+
+    <EditText
+        android:id="@+id/editText_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip"
+        android:text="Over/Under rate alert" />
+
+    <Spinner
+        android:id="@+id/spinner_over_under"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="10dip" />
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="addNewAlert"
+        android:text="Add New Alert" />
+
+
+</LinearLayout>
