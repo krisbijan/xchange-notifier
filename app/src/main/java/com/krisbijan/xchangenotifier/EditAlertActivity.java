@@ -16,6 +16,7 @@ import com.krisbijan.xchangenotifier.util.LatestRates;
 import com.krisbijan.xchangenotifier.util.Settings;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EditAlertActivity extends AppCompatActivity {
 
@@ -45,6 +46,7 @@ public class EditAlertActivity extends AppCompatActivity {
         Spinner spinner_over_under = (Spinner) findViewById(R.id.spinner_over_under);
 
         final ArrayList<String> currencies = new ArrayList<String>(LatestRates.getInstance().getRates().keySet());
+        Collections.sort(currencies);
 
 
         ArrayAdapter<String> adapterSpinner1 = new ArrayAdapter<String>(this,

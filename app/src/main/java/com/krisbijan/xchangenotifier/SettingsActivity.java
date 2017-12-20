@@ -74,6 +74,9 @@ public class SettingsActivity extends AppCompatActivity {
         Settings.getInstance(getApplicationContext()).setHour(hour);
         Settings.getInstance(getApplicationContext()).setMinute(minute);
 
+        Toast.makeText(getApplicationContext(), "Settings saved!", Toast.LENGTH_SHORT).show();
+
+
     }
 
 
