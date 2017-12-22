@@ -20,6 +20,7 @@ import com.krisbijan.xchangenotifier.util.Settings;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -48,6 +49,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         final ArrayList<String> currencies = new ArrayList<String>(LatestRates.getInstance().getRates().keySet());
 
+        Collections.sort(currencies);
 
         ArrayAdapter<String> adapterSpinner1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, currencies);

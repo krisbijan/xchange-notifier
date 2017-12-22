@@ -11,16 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.krisbijan.xchangenotifier.service.CurrencyRateNotificationService;
 import com.krisbijan.xchangenotifier.util.Alert;
 import com.krisbijan.xchangenotifier.util.DatabaseHandler;
-import com.krisbijan.xchangenotifier.util.LatestRates;
 import com.krisbijan.xchangenotifier.util.RestHandler;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-        Log.i("Activity Info", "onCreate MainActivity");
+        Log.i(this.getClass().getName(), "onCreate MainActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, CurrencyRateNotificationService.class);
-        startService(intent);
+
+
 
     }
 
@@ -43,13 +40,17 @@ public class MainActivity extends AppCompatActivity {
         new RestHandler().updateTradExchangeInfo();
         new RestHandler().updateBitcoinExchangeInfo();
 
-        database_test();
+        databaseGet();
         populateList();
+
+        Intent serviceIntent = new Intent(getApplicationContext(), CurrencyRateNotificationService.class);
+        serviceIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startService(serviceIntent);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.i("Menu Info", "Created");
+        Log.i(this.getClass().getName(), "Created");
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         return true;
@@ -59,19 +60,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.newAlert:
-                Log.i("Menu Info", "New Alert pressed");
+                Log.i(this.getClass().getName(), "New Alert pressed");
                 startActivity(new Intent(this, NewAlertActivity.class));
                 return true;
             case R.id.settings:
-                Log.i("Menu Info", "Settings pressed");
+                Log.i(this.getClass().getName(), "Settings pressed");
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.rates:
-                Log.i("Menu Info", "Latest rates pressed");
+                Log.i(this.getClass().getName(), "Latest rates pressed");
                 startActivity(new Intent(this, RatesActivity.class));
                 return true;
             default:
-                Log.i("Menu Info", "Nothing pressed");
+                Log.i(this.getClass().getName(), "Nothing pressed");
                 return super.onOptionsItemSelected(item);
         }
     }
@@ -133,13 +134,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    void database_test() {
+    void databaseGet() {
 
-        Log.d("Database ", "Reading all alerts..");
+        Log.i(this.getClass().getName(), "Reading all alerts..");
         Alert.setAllAlerts((ArrayList<Alert>) DatabaseHandler.getInstance(getApplicationContext()).getAllAlerts());
 
         for (Alert cn : Alert.getAllAlerts()) {
-            Log.d("Database ", cn.toString());
+            Log.i(this.getClass().getName(), cn.toString());
         }
 
 

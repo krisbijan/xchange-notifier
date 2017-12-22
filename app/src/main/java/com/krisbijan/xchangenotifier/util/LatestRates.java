@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class LatestRates {
 
     //all rates are based on EUR
-    private static final LatestRates instance = new LatestRates();
+    private static LatestRates instance;
     private HashMap<String,Double>  rates = new HashMap<String,Double> ();
     private Date latestUpdate;
 
@@ -60,6 +60,9 @@ public class LatestRates {
     }
 
     public static LatestRates getInstance(){
+        if (instance == null) {
+            instance = new LatestRates();
+        }
         return instance;
     }
     

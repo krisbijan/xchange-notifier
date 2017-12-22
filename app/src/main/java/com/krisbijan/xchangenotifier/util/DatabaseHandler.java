@@ -50,7 +50,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_ALERT_TABLE = "CREATE TABLE " + TABLE_ALERTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FIRST + " TEXT,"
                 + KEY_SECOND + " TEXT, " + KEY_RATE + " REAL, " + KEY_OVER_UNDER + " INTEGER" + ")";
-        Log.d ("Database", CREATE_ALERT_TABLE);
+        Log.d (this.getClass().getName(), CREATE_ALERT_TABLE);
         db.execSQL(CREATE_ALERT_TABLE);
     }
 
@@ -69,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_RATE, alert.getRate());
         values.put(KEY_OVER_UNDER, alert.getOver_under());
 
-        Log.d("Database ", "Adding "+alert.toString());
+        Log.d(this.getClass().getName(), "Adding "+alert.toString());
 
         db.insert(TABLE_ALERTS, null, values);
         db.close();
@@ -95,7 +95,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 alertList.add(alert);
             } while (cursor.moveToNext());
         }
-        Log.d("Database ", "Reading all alerts.. "+alertList);
+        Log.d(this.getClass().getName(), "Reading all alerts.. "+alertList);
 
         return alertList;
     }

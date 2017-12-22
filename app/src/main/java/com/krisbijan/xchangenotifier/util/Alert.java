@@ -118,6 +118,19 @@ public class Alert {
                 '}';
     }
 
+    public String toString2() {
+
+        String over_under = "";
+
+        if (getOver_under() == 0)
+            over_under = " under ";
+        else
+            over_under = " over ";
+
+        return getFirstCurrency() + "/" + getSecondCurrency() + over_under + getRate();
+
+    }
+
     public static ArrayList<Alert> getAllAlerts() {
         return allAlerts;
     }

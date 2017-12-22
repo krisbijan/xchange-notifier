@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.krisbijan.xchangenotifier.util.LatestRates;
 import com.krisbijan.xchangenotifier.util.RestHandler;
+import com.krisbijan.xchangenotifier.util.Settings;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -38,6 +39,10 @@ public class RatesActivity extends AppCompatActivity {
 
         Collections.sort(rates);
 
+        String mainCurrency = Settings.getInstance(getApplicationContext()).getMainCurrency();
+
+        if(mainCurrency==null ||mainCurrency.equalsIgnoreCase(""))
+            mainCurrency="EUR";
 
         if (rates.size() < 1) {
 
@@ -49,17 +54,17 @@ public class RatesActivity extends AppCompatActivity {
 
         } else {
             //DecimalFormat df = new DecimalFormat("#####.#########");
-
+            Double mainCurrencyRate = LatestRates.getInstance().getRates().get(mainCurrency);
             for (int i = 0; i < rates.size(); i++) {
                 if (other_EUR) {
                     //double ratio = Double.parseDouble(df.format(1.0D / LatestRates.getInstance().getRates().get(rates.get(i))));
-                    double ratio = 1.0D / LatestRates.getInstance().getRates().get(rates.get(i));
-                    rates.set(i, rates.get(i) + "/EUR - " + ratio);
+                    double ratio = mainCurrencyRate / LatestRates.getInstance().getRates().get(rates.get(i));
+                    rates.set(i, rates.get(i) + "/"+mainCurrency+" - " + ratio);
                 } else {
                     //double ratio = Double.parseDouble(df.format(LatestRates.getInstance().getRates().get(rates.get(i))));
-                    double ratio = LatestRates.getInstance().getRates().get(rates.get(i));
+                    double ratio = LatestRates.getInstance().getRates().get(rates.get(i))/mainCurrencyRate;
 
-                    rates.set(i, "EUR/" + rates.get(i) + " - " + ratio);
+                    rates.set(i, mainCurrency+"/" + rates.get(i) + " - " + ratio);
                 }
             }
 
