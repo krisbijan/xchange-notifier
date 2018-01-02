@@ -27,13 +27,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="8dip"
-        android:text="Time of day for notification:"/>
+        android:text="Rate check every X hours:"/>
 
-    <TimePicker
-        android:id="@+id/timePicker1"
-        android:layout_width="fill_parent"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"/>
+        android:ems="10"
+        android:inputType="number"
+        android:id="@+id/freq"
+        />
 
     <Button
         android:id="@+id/button_add"

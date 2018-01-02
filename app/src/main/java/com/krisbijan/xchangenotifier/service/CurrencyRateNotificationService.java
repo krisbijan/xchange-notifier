@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -33,28 +34,28 @@ public class CurrencyRateNotificationService extends IntentService {
     }
 
 
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+
+
+        while (true) {
+            try {
+                runCheck();
+                Integer freq = Settings.getInstance(getApplicationContext()).getFreq();
+
+                Thread.sleep(freq*1000*60*60);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
     private void runCheck() {
 
         CurrencyRateNotificationService.CHANNEL_ID = 0;
-
-        Log.i(this.getClass().getName(), "Updating values from web");
-
-        //updating currency rates
-        LatestRates.getInstance().getRates();
-        new RestHandler().updateTradExchangeInfo();
-        new RestHandler().updateBitcoinExchangeInfo();
-        Log.i(this.getClass().getName(), "All rates: "+LatestRates.getInstance().getRates());
-        sendNotification("All rates: "+LatestRates.getInstance().getRates());CHANNEL_ID++;
-        Log.i(this.getClass().getName(), "Updating database");
-
-        //calling singelton to init
-        DatabaseHandler.getInstance(getApplicationContext()).getAllAlerts();
-        Settings.getInstance(getApplicationContext()).getMainCurrency();
-
-        Log.i(this.getClass().getName(), "All alerts: "+Alert.getAllAlerts());
-        Log.i(this.getClass().getName(), "Updating values from web");
-        sendNotification("All alerts: "+Alert.getAllAlerts());CHANNEL_ID++;
-
 
         for (Alert a : Alert.getAllAlerts()) {
 
@@ -63,20 +64,6 @@ public class CurrencyRateNotificationService extends IntentService {
 
         }
 
-    }
-
-
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        while (true) {
-            try {
-                runCheck();
-
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private boolean rateReached(Alert a) {

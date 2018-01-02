@@ -26,6 +26,10 @@ public class Settings {
         if (sharedPref.getInt("minute",0)==0 )
             sharedPref.edit().putInt("minute",0).apply();
 
+
+        if (sharedPref.getInt("freq",0)==0 )
+            sharedPref.edit().putInt("freq",24).apply();
+
     }
 
     public static synchronized Settings getInstance(Context context) {
@@ -58,5 +62,13 @@ public class Settings {
 
     public void setMinute(int minute) {
         sharedPref.edit().putInt("minute",minute).apply();
+    }
+
+    public int getFreq() {
+        return sharedPref.getInt("freq",0);
+    }
+
+    public void setFreq(int freq) {
+        sharedPref.edit().putInt("freq",freq).apply();
     }
 }

@@ -29,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Log.i(this.getClass().getName(),"Starting CurrencyRateNotificationService");
+        Intent serviceIntent = new Intent(getApplicationContext(), CurrencyRateNotificationService.class);
+        serviceIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplicationContext().startService(serviceIntent);
 
 
     }

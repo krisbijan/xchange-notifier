@@ -23,30 +23,13 @@
         <activity android:name=".RatesActivity" android:label="Latest rates" />
 
 
-
         <service android:name=".service.CurrencyRateNotificationService" />
-
-
-        <receiver
-            android:enabled="true"
-            android:exported="true"
-            android:name=".service.StartMyServiceAtBootReceiver"
-            android:label="StartMyServiceAtBootReceiver">
-
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <action android:name="android.intent.action.REBOOT" />
-            </intent-filter>
-        </receiver>
-
 
 
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
 </manifest>
