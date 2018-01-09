@@ -59,14 +59,16 @@ public class CurrencyRateNotificationService extends IntentService {
 
         for (Alert a : Alert.getAllAlerts()) {
 
-            if (rateReached(a))
-                sendNotification(a.toString2());
+            String rateReached = rateReached(a);
+
+            if (rateReached!=null)
+                sendNotification(a.toString2(),rateReached);
 
         }
 
     }
 
-    private boolean rateReached(Alert a) {
+    private String rateReached(Alert a) {
         Log.i(this.getClass().getName(), "----------------------------------------------------");
 
         Log.i(this.getClass().getName(), a.toString2());
@@ -81,22 +83,22 @@ public class CurrencyRateNotificationService extends IntentService {
             if (currentRate < a.getRate()) {
                 Log.i(this.getClass().getName(), "Rate under " + a.getRate());
 
-                return true;
+                return ""+currentRate;
             }
         } else {
             if (currentRate > a.getRate()) {
                 Log.i(this.getClass().getName(), "Rate over " + a.getRate());
 
-                return true;
+                return ""+currentRate;
             }
         }
 
         Log.i(this.getClass().getName(), "Rate not reached");
 
-        return false;
+        return null;
     }
 
-    public void sendNotification(String notification) {
+    public void sendNotification(String notification, String currentRate) {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -106,7 +108,7 @@ public class CurrencyRateNotificationService extends IntentService {
                 new NotificationCompat.Builder(this, CHANNEL_ID)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(format.format(new Date()))
-                        .setContentText(notification);
+                        .setContentText(notification+" ("+currentRate+")");
         Intent resultIntent = new Intent(this, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
